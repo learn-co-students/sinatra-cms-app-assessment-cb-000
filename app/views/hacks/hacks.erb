@@ -1,0 +1,9 @@
+<h3> Welcome, <a href="/hacks/new">Hack</a> or view Hacks: </h3>
+<ul>
+<% Hack.all.each do |hack| %>
+  <div>
+      <li><%= hack.user.username %> hacks: <%= hack.description %>
+      </li>
+  </div>
+<% end %>
+</ul>

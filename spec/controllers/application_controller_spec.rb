@@ -24,7 +24,7 @@ describe ApplicationController do
         :password => "rainbows"
       }
       post '/signup', params
-      expect(last_response.location).to include("/tweets")
+      expect(last_response.location).to include("/hacks")
     end
 
     it 'does not let a user sign up without a username' do
@@ -68,7 +68,7 @@ describe ApplicationController do
       session = {}
       session[:user_id] = user.id
       get '/signup'
-      expect(last_response.location).to include('/tweets')
+      expect(last_response.location).to include('/hacks')
     end
   end
 
@@ -78,7 +78,7 @@ describe ApplicationController do
       expect(last_response.status).to eq(200)
     end
 
-    it 'loads the tweets index after login' do
+    it 'loads the hacks index after login' do
       user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
       params = {
         :username => "becky567",
@@ -102,7 +102,7 @@ describe ApplicationController do
       session = {}
       session[:user_id] = user.id
       get '/login'
-      expect(last_response.location).to include("/tweets")
+      expect(last_response.location).to include("/hacks")
     end
   end
 
@@ -124,12 +124,12 @@ describe ApplicationController do
       expect(last_response.location).to include("/")
     end
 
-    it 'does not load /tweets if user not logged in' do
-      get '/tweets'
+    it 'does not load /hacks if user not logged in' do
+      get '/hacks'
       expect(last_response.location).to include("/login")
     end
 
-    it 'does load /tweets if user is logged in' do
+    it 'does load /hacks if user is logged in' do
       user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
 
 
@@ -138,46 +138,46 @@ describe ApplicationController do
       fill_in(:username, :with => "becky567")
       fill_in(:password, :with => "kittens")
       click_button 'submit'
-      expect(page.current_path).to eq('/tweets')
+      expect(page.current_path).to eq('/hacks')
     end
   end
 
   describe 'user show page' do
-    it 'shows all a single users tweets' do
+    it 'shows all a single users hacks' do
       user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-      tweet1 = Tweet.create(:content => "tweeting!", :user_id => user.id)
-      tweet2 = Tweet.create(:content => "tweet tweet tweet", :user_id => user.id)
+      hack1 = Hack.create(:description => "hacking!", :user_id => user.id)
+      hack2 = Hack.create(:description => "hack hack hack", :user_id => user.id)
       get "/users/#{user.slug}"
 
-      expect(last_response.body).to include("tweeting!")
-      expect(last_response.body).to include("tweet tweet tweet")
+      expect(last_response.body).to include("hacking!")
+      expect(last_response.body).to include("hack hack hack")
 
     end
   end
 
   describe 'index action' do
     context 'logged in' do
-      it 'lets a user view the tweets index if logged in' do
+      it 'lets a user view the hacks index if logged in' do
         user1 = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        tweet1 = Tweet.create(:content => "tweeting!", :user_id => user1.id)
+        hack1 = Hack.create(:description => "hacking!", :user_id => user1.id)
 
         user2 = User.create(:username => "silverstallion", :email => "silver@aol.com", :password => "horses")
-        tweet2 = Tweet.create(:content => "look at this tweet", :user_id => user2.id)
+        hack2 = Hack.create(:description => "look at this hack", :user_id => user2.id)
 
         visit '/login'
 
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'submit'
-        visit "/tweets"
-        expect(page.body).to include(tweet1.content)
-        expect(page.body).to include(tweet2.content)
+        visit "/hacks"
+        expect(page.body).to include(hack1.description)
+        expect(page.body).to include(hack2.description)
       end
     end
 
     context 'logged out' do
-      it 'does not let a user view the tweets index if not logged in' do
-        get '/tweets'
+      it 'does not let a user view the hacks index if not logged in' do
+        get '/hacks'
         expect(last_response.location).to include("/login")
       end
     end
@@ -185,7 +185,7 @@ describe ApplicationController do
 
   describe 'new action' do
     context 'logged in' do
-      it 'lets user view new tweet form if logged in' do
+      it 'lets user view new hack form if logged in' do
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
 
         visit '/login'
@@ -193,11 +193,11 @@ describe ApplicationController do
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'submit'
-        visit '/tweets/new'
+        visit '/hacks/new'
         expect(page.status_code).to eq(200)
       end
 
-      it 'lets user create a tweet if they are logged in' do
+      it 'lets user create a hack if they are logged in' do
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
 
         visit '/login'
@@ -206,18 +206,18 @@ describe ApplicationController do
         fill_in(:password, :with => "kittens")
         click_button 'submit'
 
-        visit '/tweets/new'
-        fill_in(:content, :with => "tweet!!!")
+        visit '/hacks/new'
+        fill_in(:description, :with => "hack!!!")
         click_button 'submit'
 
         user = User.find_by(:username => "becky567")
-        tweet = Tweet.find_by(:content => "tweet!!!")
-        expect(tweet).to be_instance_of(Tweet)
-        expect(tweet.user_id).to eq(user.id)
+        hack = Hack.find_by(:description => "hack!!!")
+        expect(hack).to be_instance_of(Hack)
+        expect(hack.user_id).to eq(user.id)
         expect(page.status_code).to eq(200)
       end
 
-      it 'does not let a user tweet from another user' do
+      it 'does not let a user hack from another user' do
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
         user2 = User.create(:username => "silverstallion", :email => "silver@aol.com", :password => "horses")
 
@@ -227,20 +227,20 @@ describe ApplicationController do
         fill_in(:password, :with => "kittens")
         click_button 'submit'
 
-        visit '/tweets/new'
+        visit '/hacks/new'
 
-        fill_in(:content, :with => "tweet!!!")
+        fill_in(:description, :with => "hack!!!")
         click_button 'submit'
 
         user = User.find_by(:id=> user.id)
         user2 = User.find_by(:id => user2.id)
-        tweet = Tweet.find_by(:content => "tweet!!!")
-        expect(tweet).to be_instance_of(Tweet)
-        expect(tweet.user_id).to eq(user.id)
-        expect(tweet.user_id).not_to eq(user2.id)
+        hack = Hack.find_by(:description => "hack!!!")
+        expect(hack).to be_instance_of(Hack)
+        expect(hack.user_id).to eq(user.id)
+        expect(hack.user_id).not_to eq(user2.id)
       end
 
-      it 'does not let a user create a blank tweet' do
+      it 'does not let a user create a blank hack' do
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
 
         visit '/login'
@@ -249,19 +249,19 @@ describe ApplicationController do
         fill_in(:password, :with => "kittens")
         click_button 'submit'
 
-        visit '/tweets/new'
+        visit '/hacks/new'
 
-        fill_in(:content, :with => "")
+        fill_in(:description, :with => "")
         click_button 'submit'
 
-        expect(Tweet.find_by(:content => "")).to eq(nil)
-        expect(page.current_path).to eq("/tweets/new")
+        expect(Hack.find_by(:description => "")).to eq(nil)
+        expect(page.current_path).to eq("/hacks/new")
       end
     end
 
     context 'logged out' do
-      it 'does not let user view new tweet form if not logged in' do
-        get '/tweets/new'
+      it 'does not let user view new hack form if not logged in' do
+        get '/hacks/new'
         expect(last_response.location).to include("/login")
       end
     end
@@ -269,10 +269,10 @@ describe ApplicationController do
 
   describe 'show action' do
     context 'logged in' do
-      it 'displays a single tweet' do
+      it 'displays a single hack' do
 
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        tweet = Tweet.create(:content => "i am a boss at tweeting", :user_id => user.id)
+        hack = Hack.create(:description => "i am a boss at hacking", :user_id => user.id)
 
         visit '/login'
 
@@ -280,19 +280,19 @@ describe ApplicationController do
         fill_in(:password, :with => "kittens")
         click_button 'submit'
 
-        visit "/tweets/#{tweet.id}"
+        visit "/hacks/#{hack.id}"
         expect(page.status_code).to eq(200)
-        expect(page.body).to include("Delete Tweet")
-        expect(page.body).to include(tweet.content)
-        expect(page.body).to include("Edit Tweet")
+        expect(page.body).to include("Delete Hack")
+        expect(page.body).to include(hack.description)
+        expect(page.body).to include("Edit Hack")
       end
     end
 
     context 'logged out' do
-      it 'does not let a user view a tweet' do
+      it 'does not let a user view a hack' do
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        tweet = Tweet.create(:content => "i am a boss at tweeting", :user_id => user.id)
-        get "/tweets/#{tweet.id}"
+        hack = Hack.create(:description => "i am a boss at hacking", :user_id => user.id)
+        get "/hacks/#{hack.id}"
         expect(last_response.location).to include("/login")
       end
     end
@@ -300,25 +300,25 @@ describe ApplicationController do
 
   describe 'edit action' do
     context "logged in" do
-      it 'lets a user view tweet edit form if they are logged in' do
+      it 'lets a user view hack edit form if they are logged in' do
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        tweet = Tweet.create(:content => "tweeting!", :user_id => user.id)
+        hack = Hack.create(:description => "hacking!", :user_id => user.id)
         visit '/login'
 
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'submit'
-        visit '/tweets/1/edit'
+        visit '/hacks/1/edit'
         expect(page.status_code).to eq(200)
-        expect(page.body).to include(tweet.content)
+        expect(page.body).to include(hack.description)
       end
 
-      it 'does not let a user edit a tweet they did not create' do
+      it 'does not let a user edit a hack they did not create' do
         user1 = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        tweet1 = Tweet.create(:content => "tweeting!", :user_id => user1.id)
+        hack1 = Hack.create(:description => "hacking!", :user_id => user1.id)
 
         user2 = User.create(:username => "silverstallion", :email => "silver@aol.com", :password => "horses")
-        tweet2 = Tweet.create(:content => "look at this tweet", :user_id => user2.id)
+        hack2 = Hack.create(:description => "look at this hack", :user_id => user2.id)
 
         visit '/login'
 
@@ -327,49 +327,49 @@ describe ApplicationController do
         click_button 'submit'
         session = {}
         session[:user_id] = user1.id
-        visit "/tweets/#{tweet2.id}/edit"
-        expect(page.current_path).to include('/tweets')
+        visit "/hacks/#{hack2.id}/edit"
+        expect(page.current_path).to include('/hacks')
       end
 
-      it 'lets a user edit their own tweet if they are logged in' do
+      it 'lets a user edit their own hack if they are logged in' do
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        tweet = Tweet.create(:content => "tweeting!", :user_id => 1)
+        hack = Hack.create(:description => "hacking!", :user_id => 1)
         visit '/login'
 
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'submit'
-        visit '/tweets/1/edit'
+        visit '/hacks/1/edit'
 
-        fill_in(:content, :with => "i love tweeting")
+        fill_in(:description, :with => "i love hacking")
 
         click_button 'submit'
-        expect(Tweet.find_by(:content => "i love tweeting")).to be_instance_of(Tweet)
-        expect(Tweet.find_by(:content => "tweeting!")).to eq(nil)
+        expect(Hack.find_by(:description => "i love hacking")).to be_instance_of(Hack)
+        expect(Hack.find_by(:description => "hacking!")).to eq(nil)
         expect(page.status_code).to eq(200)
       end
 
-      it 'does not let a user edit a text with blank content' do
+      it 'does not let a user edit a text with blank description' do
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        tweet = Tweet.create(:content => "tweeting!", :user_id => 1)
+        hack = Hack.create(:description => "hacking!", :user_id => 1)
         visit '/login'
 
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'submit'
-        visit '/tweets/1/edit'
+        visit '/hacks/1/edit'
 
-        fill_in(:content, :with => "")
+        fill_in(:description, :with => "")
 
         click_button 'submit'
-        expect(Tweet.find_by(:content => "i love tweeting")).to be(nil)
-        expect(page.current_path).to eq("/tweets/1/edit")
+        expect(Hack.find_by(:description => "i love hacking")).to be(nil)
+        expect(page.current_path).to eq("/hacks/1/edit")
       end
     end
 
     context "logged out" do
       it 'does not load -- instead redirects to login' do
-        get '/tweets/1/edit'
+        get '/hacks/1/edit'
         expect(last_response.location).to include("/login")
       end
     end
@@ -377,44 +377,44 @@ describe ApplicationController do
 
   describe 'delete action' do
     context "logged in" do
-      it 'lets a user delete their own tweet if they are logged in' do
+      it 'lets a user delete their own hack if they are logged in' do
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        tweet = Tweet.create(:content => "tweeting!", :user_id => 1)
+        hack = Hack.create(:description => "hacking!", :user_id => 1)
         visit '/login'
 
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'submit'
-        visit 'tweets/1'
-        click_button "Delete Tweet"
+        visit 'hacks/1'
+        click_button "Delete Hack"
         expect(page.status_code).to eq(200)
-        expect(Tweet.find_by(:content => "tweeting!")).to eq(nil)
+        expect(Hack.find_by(:description => "hacking!")).to eq(nil)
       end
 
-      it 'does not let a user delete a tweet they did not create' do
+      it 'does not let a user delete a hack they did not create' do
         user1 = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        tweet1 = Tweet.create(:content => "tweeting!", :user_id => user1.id)
+        hack1 = Hack.create(:description => "hacking!", :user_id => user1.id)
 
         user2 = User.create(:username => "silverstallion", :email => "silver@aol.com", :password => "horses")
-        tweet2 = Tweet.create(:content => "look at this tweet", :user_id => user2.id)
+        hack2 = Hack.create(:description => "look at this hack", :user_id => user2.id)
 
         visit '/login'
 
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'submit'
-        visit "tweets/#{tweet2.id}"
-        click_button "Delete Tweet"
+        visit "hacks/#{hack2.id}"
+        click_button "Delete Hack"
         expect(page.status_code).to eq(200)
-        expect(Tweet.find_by(:content => "look at this tweet")).to be_instance_of(Tweet)
-        expect(page.current_path).to include('/tweets')
+        expect(Hack.find_by(:description => "look at this hack")).to be_instance_of(Hack)
+        expect(page.current_path).to include('/hacks')
       end
     end
 
     context "logged out" do
-      it 'does not load let user delete a tweet if not logged in' do
-        tweet = Tweet.create(:content => "tweeting!", :user_id => 1)
-        visit '/tweets/1'
+      it 'does not load let user delete a hack if not logged in' do
+        hack = Hack.create(:description => "hacking!", :user_id => 1)
+        visit '/hacks/1'
         expect(page.current_path).to eq("/login")
       end
     end

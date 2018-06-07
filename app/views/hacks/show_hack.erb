@@ -1,0 +1,10 @@
+<h3> Hack: </h3>
+  <div>
+      <%= @hack.user.username %> hacks: <%= @hack.description %>
+        <form method="post" action="/hacks/<%=@hack.id%>/delete">
+          <input id="hidden" type="hidden" name="_method" value="DELETE">
+          <input type="submit" value="Delete Hack">
+        </form>
+        <a href="/hacks/<%= @hack.id %>/edit">Edit Hack</a>
+        <a href="/hacks">Show All Hacks</a>
+  </div>
