@@ -1,14 +1,14 @@
 <!doctype html>
 <html>
   <head>
-    <title>Fwitter</title>
+    <title>Tiphac - TIPs, Hacks, And Crafts</title>
   </head>
   <body>
 
     <% if logged_in? || !!@trying %>
       <%= yield %>
     <% else %>
-      <h1> Welcome to Fwitter </h1>
+      <h1> Welcome to Tiphac - TIPs, Hacks, And Crafts </h1>
       <h2>Please <a href="/login">Sign In</a> or <a href="/signup">Sign Up</a> to continue.</h2>
     <%end %>
 

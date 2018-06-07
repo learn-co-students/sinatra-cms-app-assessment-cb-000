@@ -13,7 +13,9 @@
 ActiveRecord::Schema.define(version: 20180321222450) do
 
   create_table "hacks", force: :cascade do |t|
-    t.string "description"
+    t.string "title"
+    t.text "description"
+    t.string "vid_id"
     t.integer "user_id"
   end
 

@@ -1,163 +1,99 @@
-# Fwitter Group Project
-
-## Objectives
-
-1. Build a full scale Sinatra application that uses:
-
-+ A sqlite database
-+ ActiveRecord
-+ RESTful routes
-+ Sessions
-+ Login/Logout
+# Sinatra Content Management System App
 
 ## Overview
 
-The goal of this project is to build Fwitter (aka Flatiron Twitter).
+For this assessment you'll be creating any sort of CRUD app. The app should be a custom app that is created to track something important to you. Whether that's your golf club collection, or a travel app. These types of apps are generally referred to as CRUD (Create Read Update Delete apps) or simple Content Management Systems.
 
-You'll be implementing Fwitter using multiple objects that interact, including separate classes for User and Tweet.
+## Requirements
 
-Just like with Twitter, a user should not be able to take any actions (except sign-up), unless they are logged in. Once a user is logged in, they should be able to create, edit and delete their own tweets, as well as view all the tweets.
+1. Build an MVC Sinatra Application.
+2. Use ActiveRecord with Sinatra.
+3. Use Multiple Models.
+4. Use at least one `has_many` relationship on a User model and one `belongs_to` relationship on another model
+5. Must have user accounts. The user that created a given piece of content should be the only person who can modify that content
+6. Must have the abilty to create, read, update and destroy any instance of the resource that belongs to a user.
+7. Ensure that any instance of the resource that belongs to a user can be edited or deleted only by that user.
+8. You should also have validations for user input to ensure that bad data isn't added to the database. The fields in your signup form should be required and the user attribute that is used to login a user should be a unique value in the DB before creating the user. 
 
-There are controller tests to make sure that you build the appropriate controller actions that map to the correct routes.
+### Example Domains
 
-## Group Project Instructions
+ - [Golf Club Organizer](https://github.com/learn-co-curriculum/example-sinatra-assessment)
+ - [Todo List](http://todomvc.com). Each task is part of a list
+ - Collection of useful Ruby resources
 
-*Instructions for how to work on a Group Project with Learn*
+If you are unsure about a domain or can't come up with an idea, feel free to reach out to fullstack@learn.co for some advice.
 
-### Some Hints on Working Together
+### Domains To Avoid
 
-Working on a software project with another person is not something to be taken lightly. While you are a fantastic coder solo, software development is a collaborative activity. Just like anything else, there is skill in collaborating on code. In the end, collaborating with another person boils down to three different styles:
+ As we spent a lot of time working with domains similiar to these during the Sinatra curriculum we do not accept these domain designs. 
+  - Twitter Clone 
+  - Blog Application
+  
+### Recomendations
 
-  - Pair - Pair the entire time working linearly together
-  - Pass - 1 person does 1 requirement and then the next person does the next one
-  - Parallel - work on different parts at the same time by agreeing on interfaces and stubs and meeting in the middle
-
-Remember! The goal at The Flatiron School is not to do, it is to *learn*. Make sure you have worked in all three styles of collaboration. We want you to learn how the different styles works, and make sure that together you and your partner understand every part of the code.
+ You do not have to make your routes any more complicated than `http://yourapp.com/posts/1`. We want to see you build a great CRUD application but we are not requiring you to build the next AirBnB. 
 
 ## Instructions
 
-### File Structure
+1. Create a new repository on GitHub for your Sinatra Application.
+2. When you create the Sinatra app for your assessment, add the spec.md file from this repo to the root directory of the project, commit it to Git and push it up to GitHub.
+3. Build your application. Make sure to commit early and commit often. Commit messages should be meaningful (clearly describe what you're doing in the commit) and accurate (there should be nothing in the commit that doesn't match the description in the commit message). Good rule of thumb is to commit every 3-7 mins of actual coding time. Most of your commits should have under 15 lines of code and a 2 line commit is perfectly acceptable. **This is important and you'll be graded on this**.
+4. While you're working on it, record a 30 min coding session with your favorite screen capture tool. During the session, either think out loud or not. It's up to you. You don't need to submit the video, but we may ask for it at a later time.
+5. Make sure to create a good README.md with a short description, install instructions, a contributors guide and a link to the license for your code.
+6. Make sure to check each box in your spec.md (replace the space between the square braces with an x) and explain next to each one how you've met the requirement *before* you submit your project.
+7. [Fill out this checklist.](https://docs.google.com/forms/d/e/1FAIpQLSdIrS7g6y_B4dAY7HGS4yAndg9bfHuw7GmsiwA6MQXXqNrDjA/viewform?entry.237262577&entry.835010005&entry.301147721)
+8. Prepare a short video demo (narration helps!) describing how a user would interact with your working application.
+9. Write a blog post about the project and process.
+10. When done, submit your GitHub repo's url, a link to your video demo, and a link to your blog post in the corresponding text boxes in the right rail. Hit "I'm done" to wrap it up.
 
-```
-├── CONTRIBUTING.md
-├── Gemfile
-├── Gemfile.lock
-├── LICENSE.md
-├── README.md
-├── Rakefile
-├── app
-│   ├── controllers
-│   │   └── application_controller.rb
-│   ├── models
-│   │   ├── tweet.rb
-│   │   └── user.rb
-│   └── views
-│       ├── index.erb
-│       ├── layout.erb
-│       ├── tweets
-│       │   ├── create_tweet.erb
-│       │   ├── edit_tweet.erb
-│       │   ├── show_tweet.erb
-│       │   └── tweets.erb
-│       └── users
-│           ├── create_user.erb
-│           └── login.erb
-│           └── show.erb
-├── config
-│   └── environment.rb
-├── config.ru
-├── db
-│   ├── development.sqlite
-│   ├── migrate
-│   │   ├── 20151124191332_create_users.rb
-│   │   └── 20151124191334_create_tweets.rb
-│   ├── schema.rb
-│   └── test.sqlite
-└── spec
-    ├── controllers
-    │   └── application_controller_spec.rb
-    └── spec_helper.rb
-```
+Unlike the rest of the curriculum, if you have any questions about your assessment or need help with it, please *don’t* use the Ask New Question feature. Rather than working with Learn Experts, please reach out to your Learn Instructor responsible for this section instead
 
-### Gemfile and environment.rb
+## If you're a Learn-Verified Premium student:
 
-This project is supported by Bundler and includes a `Gemfile`.
+We'll send an email to you soon to schedule a pairing process. If you don't hear from us in 48 hours after submission, get in touch!
 
-Run bundle install before getting started on the project.
+### Be Prepared to:
 
-As this project has quite a few files, an `environment.rb` is included that loads all the code in your project along with Bundler. You do not ever need to edit this file. When you see require_relative `../config/environment`, that is how your environment and code are loaded.
+1. Confirm your application meets the requirements above. We'll go through your app and ask you to show us how it meets the requirements above. 5-10 mins.
+2. Explain your code from execution point to exit point. We're making sure you wrote it and understand how it works. 10-15 mins.
+3. Live coding, doing a refactoring exercise to make sure you're comfortable working with your code. 10-15 mins.
 
-### Models
+### What to expect from the pairing session
 
-You'll need to create two models in `app/models`, one `User` model and one `Tweet`. Both classes should inherit from `ActiveRecord::Base`.
+Project reviews are focused on preparing you for technical interviews. Treat project reviews as if they were technical interviews, in both attitude and technical presentation. 
 
-### Migrations
+#### Be scrappy.
+- If you make a mistake, correct yourself. 
+- Think on your feet. We will expect you to be able to explain development concepts to us, as well as expanding on concepts that you have already implemented, but you’ll also have the opportunity to look things up while you're live coding.
 
-You'll need to create two migrations to create the users and the tweets table.
+#### Make no little plans.
+- You're going to learn a ton. We will give pointers and show you ways to improve your code. This isn't telling you that your code is wrong, it's simply us teaching. 
+- Approach live coding with a constructive attitude. You might feel nervous or uncertain, but as long as you are familiar with the section material you should be able to reason your way to a solution.
+- Be proud of your project and your code, and show confidence in it. 
 
-Users should have a username, email, and password, and have many tweets.
+#### Radiate positivity.
+- Present yourself and your project in the best way possible. 
+- Be open to feedback, both positive and constructive. 
+- If the instructor asks you to complete additional features, or you missed a project requirement, treat this as a learning experience. Becoming  a developer is complex and challenging, and it’s our job to find the holes in your knowledge and help you fill them. This is to help you become a better developer, not to delay your progress in the program.
 
-Tweets should have content, belong to a user.
+#### Work Together.
+- Trust yourself.
+- Trust us  - our goal is to help you be successful in achieving your goals.
+- We understand that this process can be stressful. We’re here to help you through.
 
-### Associations
-
-You'll need to set up the relationship between users and tweets. Think about how the user interacts with the tweets, what belongs to who?
+#### Pursue mastery.
+- Use the best technical vocabulary you can.
+- Explain the details - this is your application, you'll be expected to have a solid understand of how it works"
+- Ask questions! Curiosity and willingness to learn are hugely valued in our industry.  If you haven’t heard of something, that’s okay - use this opportunity to learn about it!
 
 
-### Home Page
+### What won't happen:
 
-You'll need a controller action to load the home page. You'll want to create a view that will eventually link to both a login page and signup page. The homepage should respond to a GET request to `/`.
+- You won't be told you're ever wrong
+- You won't be yelled at, belittled, or scolded
+- You won't be put on the spot without support
+- There's nothing you can do to instantly fail or blow it.
 
-### Create Tweet
+<p class='util--hide'>View <a href='https://learn.co/lessons/sinatra-cms-app-assessment'>Sinatra Assessment</a> on Learn.co and start learning to code for free.</p>
 
-You'll need to create two controller actions, one to load the create tweet form, and one to process the form submission. The tweet should be created and saved to the database. The form should be loaded via a GET request to `/tweets/new` and submitted via a POST to `/tweets`.
-
-### Show Tweet
-
-You'll need to create a controller action that displays the information for a single tweet. You'll want the controller action respond to a GET request to `/tweets/:id`.
-
-### Edit Tweet
-
-You'll need to create two controller actions to edit a tweet: one to load the form to edit, and one to actually update the tweet entry in the database. The form to edit a tweet should be loaded via a GET request to `/tweets/:id/edit`. The form should be submitted via a POST request to `/tweets/:id`.
-
-You'll want to create an edit link on the tweet show page.
-
-### Delete Tweet
-
-You'll only need one controller action to delete a tweet. The form to delete a tweet should be found on the tweet show page.
-
-The delete form doesn't need to have any input fields, just a submit button.
-
-The form to delete a tweet should be submitted via a POST request to `tweets/:id/delete`.
-
-### Sign Up
-
-You'll need to create two controller actions, one to display the user signup and one to process the form submission. The controller action that processes the form submission should create the user and save it to the database.
-
-The form to sign up should be loaded via a GET request to `/signup` and submitted via a POST request to `/signup`.
-
-The signup action should also log the user in and add the `user_id` to the sessions hash.
-
-Make sure you add the Signup link to the home page.
-
-### Log In
-
-You'll need two more controller actions to process logging in: one to display the form to log in and one to log add the `user_id` to the sessions hash.
-
-The form to login should be loaded via a GET request to `/login` and submitted via a POST request to `/login`.
-
-### Log Out
-
-You'll need to create a controller action to process a GET request to `/logout` to log out. The controller action should clear the session hash
-
-### Protecting The Views
-
-You'll need to make sure that no one can create, read, edit or delete any tweets.
-
-You'll want to create two helper methods `current_user` and `logged_in?`. You'll want to use these helper methods to block content if a user is not logged in.
-
-It's especially important that a user should not be able to edit or delete the tweets created by a different user. A user can only modify their own tweets.
-
-<p data-visibility='hidden'>View <a href='https://learn.co/lessons/sinatra-fwitter-group-project' title='Fwitter Group Project'>Fwitter Group Project</a> on Learn.co and start learning to code for free.</p>
-
-<p class='util--hide'>View <a href='https://learn.co/lessons/sinatra-fwitter-group-project'>Fwitter</a> on Learn.co and start learning to code for free.</p>
+<p class='util--hide'>View <a href='https://learn.co/lessons/sinatra-cms-app-assessment'>Sinatra Portfolio Project</a> on Learn.co and start learning to code for free.</p>
