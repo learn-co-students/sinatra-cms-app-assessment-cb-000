@@ -2,7 +2,7 @@
 <ul>
 <% Hack.all.each do |hack| %>
   <div>
-      <li><a href="/hacks/<%= hack.id %>"><%= hack.title %></a> - Submitted by <%= hack.user.username %>
+      <li><%= hack.user.username %> hacks: <%= hack.description %>
       </li>
   </div>
 <% end %>
