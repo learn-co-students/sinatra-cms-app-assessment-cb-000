@@ -35,11 +35,13 @@ class HackController < ApplicationController
   end
 
   post '/hacks/:id' do
-    if params[:description].empty?
+    if params[:title].empty? || params[:description].empty?
       redirect to "/hacks/#{params[:id]}/edit"
     else
       @hack = Hack.find_by_id(params[:id])
+      @hack.title = params[:title]
       @hack.description = params[:description]
+      @hack.vid_id = params[:vid_id]
       @hack.save
       redirect to "/hacks/#{@hack.id}"
     end

@@ -1,7 +1,7 @@
-<h3> Hack: </h3>
+<h3> <%= @hack.title %> </h3>
   <div>
-      <%= @hack.user.username %> hacks: <%= @hack.title %><br>
-      <p> <%= @hack.title %> </p> <br>
+      <%= @hack.user.username %> hacks: <br>
+      <p> <%= @hack.description %> </p> <br>
 
       <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @hack.vid_id %>?rel=0" frameborder="0"; encrypted-media" allowfullscreen></iframe>
 
