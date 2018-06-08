@@ -1,16 +1,35 @@
 <!doctype html>
 <html>
   <head>
-    <title>Tiphac - TIPs, Hacks, And Crafts</title>
+    <title>Tiphac = TIPs, Hacks, And Crafts</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
+    <nav>
+      <% if logged_in? %>
 
-    <% if logged_in? || !!@trying %>
-      <%= yield %>
-    <% else %>
-      <h1> Welcome to Tiphac - TIPs, Hacks, And Crafts </h1>
-      <h2>Please <a href="/login">Sign In</a> or <a href="/signup">Sign Up</a> to continue.</h2>
-    <%end %>
+        <a href="/hacks/new"> Create Hack </a>
+        <a href="/logout"> Log Out </a>
+        <p>Welcome, <%=current_user.username %></p>
 
+      <% else %>
+        <a href="/signup">Sign Up</a>
+        <a href="/login"> Sign In </a>
+      <%end %>
+
+    </nav>
+    <div class="container">
+      <h1>Tiphac = TIPs, Hacks, And Crafts</h1>
+
+      <% if logged_in? || !!@trying %>
+        <%= yield %>
+      <% else %>
+        <h2>Please <a href="/login">Sign In</a> or <a href="/signup">Sign Up</a> to continue.</h2>
+      <%end %>
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   </body>
 </html>
