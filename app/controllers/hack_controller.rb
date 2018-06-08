@@ -15,7 +15,7 @@ class HackController < ApplicationController
     if params[:description].empty?
       redirect to "/hacks/new"
     else
-      @hack = current_user.hacks.create(description: params[:description])
+      @hack = current_user.hacks.create(title: params[:title],description: params[:description],vid_id: params[:vid_id])
       redirect to "/hacks/#{@hack.id}"
     end
   end
