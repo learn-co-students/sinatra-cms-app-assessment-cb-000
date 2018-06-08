@@ -1,6 +1,10 @@
 <h3> Hack: </h3>
   <div>
-      <%= @hack.user.username %> hacks: <%= @hack.description %>
+      <%= @hack.user.username %> hacks: <%= @hack.title %><br>
+      <p> <%= @hack.title %> </p> <br>
+
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @hack.vid_id %>?rel=0" frameborder="0"; encrypted-media" allowfullscreen></iframe>
+
         <form method="post" action="/hacks/<%=@hack.id%>/delete">
           <input id="hidden" type="hidden" name="_method" value="DELETE">
           <input type="submit" value="Delete Hack">
