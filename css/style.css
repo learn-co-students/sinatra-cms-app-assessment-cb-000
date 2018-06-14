@@ -1,5 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Elsie+Swash+Caps:400,900);
-@import url(http://fonts.googleapis.com/css?family=Clicker+Script);
+@import url(http://fonts.googleapis.com/css?family=Cabin+Scratch);
 
 /*////////// GLOBAL //////////*/
 
@@ -286,11 +285,11 @@ header {
 
 /*////////// LOGO //////////*/
 
-#logo {
+.logo {
   padding: 74px 0 0;
 }
 
-#logo h1 {
+.logo h1 {
   display: inline-block;
   width: 45px;
   height: 45px;
@@ -298,8 +297,8 @@ header {
   white-space: nowrap;
   overflow: hidden;
   margin: 0;
-  background: url(../images/exceptional-logo.png) no-repeat;
-  background-size: 100% 100%;
+  font: 3.5em "Cabin Script", Sans Serif;
+
 }
 
 #logo h2 {

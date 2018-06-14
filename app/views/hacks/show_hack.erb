@@ -5,11 +5,14 @@
 
 
       <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @hack.vid_id %>?rel=0" frameborder="0"; encrypted-media" allowfullscreen></iframe>
+      <br>
+      <% if @hack.user_id == current_user.id %>
 
         <form method="post" action="/hacks/<%=@hack.id%>/delete">
           <input id="hidden" type="hidden" name="_method" value="DELETE">
           <input type="submit" value="Delete Hack">
         </form>
         <a href="/hacks/<%= @hack.id %>/edit">Edit Hack</a>
-        <a href="/hacks">Show All Hacks</a>
+      <%end %>
+
   </div>
