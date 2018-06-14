@@ -10,7 +10,7 @@
 
         <form method="post" action="/hacks/<%=@hack.id%>/delete">
           <input id="hidden" type="hidden" name="_method" value="DELETE">
-          <input type="submit" value="Delete Hack">
+          <input type="submit" value="Delete">
         </form>
         <a href="/hacks/<%= @hack.id %>/edit">Edit Hack</a>
       <%end %>

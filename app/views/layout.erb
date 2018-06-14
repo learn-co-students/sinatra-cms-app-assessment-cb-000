@@ -6,14 +6,15 @@
     <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
-    <div id="logo">
+    <div class="logo">
       <h1>Tiphac = TIPs, Hacks, And Crafts</h1>
     <div>
 
     <nav>
       <p>
       <% if logged_in? %>
-          <a href="/users/<%=current_user.username %>">Welcome, <%=current_user.username %></a> |
+          .  Welcome, <%=current_user.username %> |
+          <a href="/users/<%=current_user.username %>">Your Hacks</a> |
           <a href="/hacks">All Hacks</a> |
           <a href="/hacks/new">Create Hack</a> |
           <a href="/logout">Log Out</a>
@@ -24,7 +25,7 @@
       </p>
 
     </nav>
-    <div class="container">
+    <div class="wrapper" class="container">
 
       <% if logged_in? || !!@trying %>
         <%= yield %>
@@ -33,6 +34,11 @@
       <%end %>
 
     </div>
+
+    <footer>
+      &copy; 2018 Dapawn. All Rights Reserved.
+    </footer>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   </body>
