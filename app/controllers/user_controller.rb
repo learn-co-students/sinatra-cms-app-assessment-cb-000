@@ -1,4 +1,8 @@
+require 'rack-flash'
+
 class UserController < ApplicationController
+  use Rack::Flash
+
   get '/signup' do
     @trying = 1
     if !logged_in?
@@ -10,6 +14,7 @@ class UserController < ApplicationController
 
   post '/signup' do
     if params[:username].empty? || params[:email].empty? || params[:password].empty? #Remember empty strings are TRUE, can't use '!'
+      flash[:message] = "All fields are required. Please try again."
       redirect to '/signup'
     else
       @user = User.new(:username => params[:username], :email => params[:email], :password => params[:password])
@@ -34,6 +39,7 @@ class UserController < ApplicationController
       session[:user_id] = user.id
       redirect "/hacks"
     else
+      flash[:message] = "We could not validate your account, click Sign In above to try again, or Create a new account below."
       redirect to '/signup'
     end
   end

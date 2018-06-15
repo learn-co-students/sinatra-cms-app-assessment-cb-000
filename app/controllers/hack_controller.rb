@@ -1,6 +1,8 @@
 require 'pry'
+require 'rack-flash'
 
 class HackController < ApplicationController
+  use Rack::Flash
 
   get '/hacks' do
       @hacks = Hack.all
@@ -12,7 +14,8 @@ class HackController < ApplicationController
   end
 
   post '/hacks' do
-    if params[:description].empty?
+    if params[:title].empty? || params[:description].empty?
+      flash[:message] = "The Title and the Description are required. Please try again."
       redirect to "/hacks/new"
     else
       @hack = current_user.hacks.create(title: params[:title],description: params[:description],vid_id: params[:vid_id])

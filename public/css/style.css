@@ -3,7 +3,7 @@
 
 body {
   margin: 10px;
-  font-size: 200%;
+  font-size: 150%;
 }
 
 h3 {
@@ -84,12 +84,6 @@ iframe {
   height: 403px;
 }
 
-.milk-text {
-  font: bold 2.6em 'Elsie Swash Caps', cursive;
-  color: white;
-  text-shadow: 0 2px 3px #000;
-}
-
 .shadow {
   box-shadow: 0 3px 10px #333;
 }
@@ -161,7 +155,7 @@ img, video, audio, iframe, table, form {
 .wrapper {
   width: 960px;
   margin: 0 auto;
-  min-height: 100%
+  min-height: 100%;
   height: auto !important;
   height: 100%;
 }

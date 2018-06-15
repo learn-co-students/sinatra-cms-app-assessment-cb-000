@@ -1,7 +1,6 @@
 require './config/environment'
 
 class ApplicationController < Sinatra::Base
-  @trying = nil
 
   configure do
     set :public_folder, 'public'
@@ -11,6 +10,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/' do
+    @trying = 1
     erb :index
   end
 
