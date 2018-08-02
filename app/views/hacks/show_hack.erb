@@ -1,0 +1,18 @@
+<h3> <%= @hack.title %> </h3>
+  <div>
+      <p> <%= @hack.description %> </p>
+      -Submitted by <%= @hack.user.username %><br><br><br>
+
+
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @hack.vid_id %>?rel=0" frameborder="0"; encrypted-media" allowfullscreen></iframe>
+      <br>
+      <% if @hack.user_id == current_user.id %>
+
+        <form method="post" action="/hacks/<%=@hack.id%>/delete">
+          <input id="hidden" type="hidden" name="_method" value="DELETE">
+          <input type="submit" value="Delete">
+        </form>
+        <a href="/hacks/<%= @hack.id %>/edit">Edit Hack</a>
+      <%end %>
+
+  </div>

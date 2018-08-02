@@ -1,0 +1,8 @@
+<h1>Create hack</h1>
+<% if !!flash[:message] %> <%= flash[:message] %> <% end %>
+<form method="post" action="/hacks">
+  Title: <input type="text" name="title"><br>
+  Description: <input type="text" name="description" ><br>
+  Video ID: <input type="text" name="vid_id" ><br>
+  <input type="submit" id="submit" name="submit" value="submit">
+</form>

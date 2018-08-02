@@ -1,0 +1,8 @@
+<h3> <%= @user.username %> hacks: </h3>
+<ul>
+<% @user.hacks.each do |hack| %>
+  <div>
+      <li><a href="/hacks/<%= hack.id %>"><%= hack.title %></a>: <%= hack.description %></li>
+  </div>
+<% end %>
+</ul>
