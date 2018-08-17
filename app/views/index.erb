@@ -1,0 +1,33 @@
+<h1>Welcome, <%=current_user%> to BookBuddy!</h1>
+
+<% if flash.has?(:message) %>
+<%= flash[:message] %>
+<% end %>
+
+<% if logged_in? %>
+<h3>Books</h3>
+<% @books.each do |book| %>
+  <tr>
+    <td><%=book.id%></td>
+    <td><%=book.user.username%></td>
+    <td><%=book.title%></td>
+    <td><%=book.author%></td>
+    <td><a href="/books/<%=book.id%>">View</a></td>
+  </tr>
+  <% end %>
+
+<br>
+
+<form action="/books/new" method="get">
+  <input type="submit" name="" value="New Book">
+</form>
+
+<br>
+
+<form action="/logout" method="get">
+  <input type="submit" name="" value="Log Out">
+</form>
+
+<% else %>
+<h3>Please <a href="/signup">Sign Up</a> or <a href="/login">Log In</a>to continue.</h3>
+<%end%>

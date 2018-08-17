@@ -1,0 +1,18 @@
+<% if flash.has?(:message) %>
+<%= flash[:message]%>
+<% end %>
+
+
+<h2>Edit your book:</h2>
+
+<form action="/books/<%=@book.id%>" method="post">
+  <input id="hidden" type="hidden" name="_method" value="patch">
+
+  <h3><input type="text" name="title" id="title" value="<%=@book.title%>"></h3>
+  <h3><input type="text" name="author" id="author" value="<%=@book.author%>"></h3>
+  <h3><input type="text" name="blurb" id="blurb" value="<%=@book.blurb%>"></h3>
+  <input type="submit" id="submit" name="" value="Edit Book">
+
+</form>
+
+<br><br>

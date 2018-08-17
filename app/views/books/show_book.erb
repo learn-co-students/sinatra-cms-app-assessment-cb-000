@@ -1,0 +1,37 @@
+<% if flash.has?(:message) %>
+<%= flash[:message]  %>
+<% end %>
+
+<% if session[:user_id] == @book.user_id %>
+<h3>My Book</h3>
+<%else%>
+<h3><%=@book.user.username%>'s Book</h3>
+<% end %>
+
+<p><%=@book.title%></p>
+<p><%=@book.author%></p>
+<p><%=@book.blurb%></p>
+
+<!-- Edit Book -->
+<form action="/books/<%=@book.id%>/edit" method="get">
+  <input type="submit" id="edit" value="Edit Book">
+</form>
+
+<br><br>
+<!-- Delete Book -->
+<form action="/books/<%=@book.id%>/delete" method="post">
+  <input type="hidden" id="hidden" name="_method " value="delete">
+  <input type="submit" id="delete" name="" value="Delete Book">
+</form>
+
+<br><br>
+
+<!-- View All Books -->
+<form action="/books" method="get">
+  <input type="submit" name="" value="View All Books">
+</form>
+
+<!-- Log Out -->
+<form action="/logout" method="get">
+  <input type="submit" id="logout" name="" value="Log Out">
+</form>
