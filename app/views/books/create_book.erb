@@ -1,0 +1,13 @@
+<% if flash.has?(:message) %>
+<%= flash[:message] %>
+<% end %>
+
+<h1>Create a Book</h1>
+
+<form action="/books" method="post">
+  <p>Book Title:<input type="text" id="title" name="title"></p>
+  <p>Book Author:<input type="text" id="author" name="author"></p>
+  <p>Book Blurb:<input type="text" id="blurb" name="blurb"></p>
+  <br>
+  <input type="submit" id="submit" value="Create Book">
+</form>
